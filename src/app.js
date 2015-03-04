@@ -46,17 +46,12 @@ mainMenu.on('select', function(e) {
       {
         url: application.ajax.url + 'game?team_id_home=' + Settings.option('team_id_home') + '&team_id_visitor=' + Settings.option('team_id_visitor'),
         type: application.ajax.type,
-        method: 'post',
-        cache: false,
-        data: {
-          team_id_home: Settings.option('team_id_home'),
-          team_id_visitor: Settings.option('team_id_visitor')
-        }
+        method: 'post'
       },
       function(data, status, request) {
         console.log('[AJAX SUCCESS]', status, JSON.stringify(data, null, 2));
         if(!data.error) {
-          Settings.data('game', data.game);
+          Settings.data('game_id', data.game);
           gameWindow.show();
         }
       },
@@ -98,9 +93,29 @@ var gwRect = new UI.Rect({
   backgroundColor: 'white'
 });
 
+var updateScore = function(team_id) {
+  ajax(
+      {
+        url: application.ajax.url + 'goal?game_id=' + Settings.data('game_id') + '&team_id=' + team_id,
+        type: application.ajax.type,
+        method: 'post'
+      },
+      function(data, status, request) {
+        console.log('[AJAX SUCCESS]', status, JSON.stringify(data, null, 2));
+        if(!data.error) {
+          gwTextScoreHome.text(data.score.home);
+          gwTextScoreVisitor.text(data.score.visitor);
+        }
+      },
+      function(error, status, request) {
+        console.log('[AJAX ERROR]', status, JSON.stringify(error, null, 2));
+      }
+    );
+};
+
 //team #1 point
 gameWindow.on('click', 'up', function() {
-
+  updateScore(Settings.option('team_id_home'));
 });
 
 //team #1 gamelle !
@@ -110,7 +125,7 @@ gameWindow.on('longClick', 'up', function() {
 
 //team #1 point
 gameWindow.on('click', 'down', function() {
-
+  updateScore(Settings.option('team_id_visitor'));
 });
 
 //team #2 gamelle !
