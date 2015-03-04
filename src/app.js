@@ -93,44 +93,71 @@ var gwRect = new UI.Rect({
   backgroundColor: 'white'
 });
 
-var updateScore = function(team_id) {
+var updateScore = function(team_id, gamelle) {
   ajax(
-      {
-        url: application.ajax.url + 'goal?game_id=' + Settings.data('game_id') + '&team_id=' + team_id,
-        type: application.ajax.type,
-        method: 'post'
-      },
-      function(data, status, request) {
-        console.log('[AJAX SUCCESS]', status, JSON.stringify(data, null, 2));
-        if(!data.error) {
-          gwTextScoreHome.text(data.score.home);
-          gwTextScoreVisitor.text(data.score.visitor);
-        }
-      },
-      function(error, status, request) {
-        console.log('[AJAX ERROR]', status, JSON.stringify(error, null, 2));
+    {
+      url: application.ajax.url + 'goal?game_id=' + Settings.data('game_id') + '&team_id=' + team_id + '&gamelle=' + gamelle,
+      type: application.ajax.type,
+      method: 'post'
+    },
+    function(data, status, request) {
+      console.log('[AJAX SUCCESS]', status, JSON.stringify(data, null, 2));
+      if(!data.error) {
+        gwTextScoreHome.text(data.score.home);
+        gwTextScoreVisitor.text(data.score.visitor);
       }
-    );
+    },
+    function(error, status, request) {
+      console.log('[AJAX ERROR]', status, JSON.stringify(error, null, 2));
+    }
+  );
 };
 
 //team #1 point
 gameWindow.on('click', 'up', function() {
-  updateScore(Settings.option('team_id_home'));
+  updateScore(Settings.option('team_id_home'), 0);
 });
+
+//team #2 point
+gameWindow.on('click', 'down', function() {
+  updateScore(Settings.option('team_id_visitor'), 0);
+});
+
+var gamelle_team_id;
 
 //team #1 gamelle !
 gameWindow.on('longClick', 'up', function() {
-
-});
-
-//team #1 point
-gameWindow.on('click', 'down', function() {
-  updateScore(Settings.option('team_id_visitor'));
+  gamelle_team_id = Settings.option('team_id_home');
+  gamelleMenu.show();
 });
 
 //team #2 gamelle !
 gameWindow.on('longClick', 'down', function() {
+  gamelle_team_id = Settings.option('team_id_visitor');
+  gamelleMenu.show();
+});
 
+/* Gamelle Menu */
+
+var gamelleMenu = new UI.Menu({
+  sections: [{
+    items: [
+      {title: 'Take the point'},
+      {title: 'Remove the point'}
+    ]
+  }]
+});
+
+gamelleMenu.on('select', function(e) {
+  console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
+  if (e.itemIndex === 0) { //Take the point
+    updateScore(gamelle_team_id, 1);
+    gamelleMenu.hide();
+  }
+  else if (e.itemIndex === 1) { //Remove the point
+    updateScore(gamelle_team_id, -1);
+    gamelleMenu.hide();
+  }
 });
 
 //add
