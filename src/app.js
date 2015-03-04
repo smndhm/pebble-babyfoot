@@ -20,21 +20,22 @@ var ajax = require('ajax');
 
 /* Settings */
 
-Settings.option('team_id_home', 1);
-Settings.option('team_id_visitor', 2);
+Settings.data('team_home', {id: 1, name: 'The A Team'});
+Settings.data('team_visitor', {id: 2, name: 'Les Loosers'});
 
-console.log('[SETTINGS OPTIONS]', JSON.stringify(Settings.option(), null, 2));
 console.log('[SETTINGS DATAS]', JSON.stringify(Settings.data(), null, 2));
 
+var team_home = Settings.data('team_home');
+var team_visitor = Settings.data('team_visitor');
 
 /* Main Menu */
 
 var mainMenu = new UI.Menu({
   sections: [{
     items: [
-      {title: 'Start Game'},
+      {title: 'Start Game', subtitle: team_home.name + ' VS ' + team_visitor.name}/*,
       {title: 'History'},
-      {title: 'Options'}
+      {title: 'Options'}*/
     ]
   }]
 });
@@ -44,7 +45,7 @@ mainMenu.on('select', function(e) {
   if (e.itemIndex === 0) { //Start Game
     ajax(
       {
-        url: application.ajax.url + 'game?team_id_home=' + Settings.option('team_id_home') + '&team_id_visitor=' + Settings.option('team_id_visitor'),
+        url: application.ajax.url + 'game?team_id_home=' + team_home.id + '&team_id_visitor=' + team_visitor.id,
         type: application.ajax.type,
         method: 'post'
       },
@@ -87,6 +88,20 @@ var gwTextScoreVisitor = new UI.Text({
   text: '0'
 });
 
+var gwTextTeamHome = new UI.Text({
+  position: new Vector2(4,55),
+  size: new Vector2(136,24),
+  textAlign: 'center',
+  text: team_home.name
+});
+
+var gwTextTeamVisitor = new UI.Text({
+  position: new Vector2(4,79),
+  size: new Vector2(136,24),
+  textAlign: 'center',
+  text: team_visitor.name
+});
+
 var gwRect = new UI.Rect({
   position: new Vector2(0,83),
   size: new Vector2(144,2),
@@ -115,25 +130,25 @@ var updateScore = function(team_id, gamelle) {
 
 //team #1 point
 gameWindow.on('click', 'up', function() {
-  updateScore(Settings.option('team_id_home'), 0);
+  updateScore(team_home.id, 0);
 });
 
 //team #2 point
 gameWindow.on('click', 'down', function() {
-  updateScore(Settings.option('team_id_visitor'), 0);
+  updateScore(team_visitor.id, 0);
 });
 
 var gamelle_team_id;
 
 //team #1 gamelle !
 gameWindow.on('longClick', 'up', function() {
-  gamelle_team_id = Settings.option('team_id_home');
+  gamelle_team_id = team_home.id;
   gamelleMenu.show();
 });
 
 //team #2 gamelle !
 gameWindow.on('longClick', 'down', function() {
-  gamelle_team_id = Settings.option('team_id_visitor');
+  gamelle_team_id = team_visitor.id;
   gamelleMenu.show();
 });
 
@@ -141,6 +156,7 @@ gameWindow.on('longClick', 'down', function() {
 
 var gamelleMenu = new UI.Menu({
   sections: [{
+    title: 'Gamelle !',
     items: [
       {title: 'Take the point'},
       {title: 'Remove the point'}
@@ -162,5 +178,7 @@ gamelleMenu.on('select', function(e) {
 
 //add
 gameWindow.add(gwTextScoreHome);
+gameWindow.add(gwTextTeamHome);
 gameWindow.add(gwTextScoreVisitor);
+gameWindow.add(gwTextTeamVisitor);
 gameWindow.add(gwRect);

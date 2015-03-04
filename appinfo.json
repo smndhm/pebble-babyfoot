@@ -29,9 +29,9 @@
                 "type": "font"
             },
             {
-                "file": "images/baby-foot.pbl.png",
+                "file": "images/baby-foot-player.pbl.png",
                 "menuIcon": true,
-                "name": "IMAGES_BABY_FOOT_PBL_PNG",
+                "name": "IMAGES_BABY_FOOT_PLAYER_PBL_PNG",
                 "type": "png"
             }
         ]
