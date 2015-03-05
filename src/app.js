@@ -21,7 +21,7 @@ var ajax = require('ajax');
 /* Settings */
 
 Settings.data('team_home', {id: 1, name: 'The A Team'});
-Settings.data('team_visitor', {id: 2, name: 'Les Loosers'});
+Settings.data('team_visitor', {id: 2, name: 'Les Losers'});
 
 console.log('[SETTINGS DATAS]', JSON.stringify(Settings.data(), null, 2));
 
@@ -33,7 +33,11 @@ var team_visitor = Settings.data('team_visitor');
 var mainMenu = new UI.Menu({
   sections: [{
     items: [
-      {title: 'Start Game', subtitle: team_home.name + ' VS ' + team_visitor.name}/*,
+      {
+        title: 'Start Game',
+        subtitle: 'VS ' + team_visitor.name,
+        icon: 'images/baby-foot-start-game.pbl.png'
+      }/*,
       {title: 'History'},
       {title: 'Options'}*/
     ]
@@ -53,6 +57,8 @@ mainMenu.on('select', function(e) {
         console.log('[AJAX SUCCESS]', status, JSON.stringify(data, null, 2));
         if(!data.error) {
           Settings.data('game_id', data.game);
+          gwTextScoreHome.text('0');
+          gwTextScoreVisitor.text('0');
           gameWindow.show();
         }
       },
