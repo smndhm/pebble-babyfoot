@@ -164,8 +164,14 @@ var gamelleMenu = new UI.Menu({
   sections: [{
     title: 'Gamelle !',
     items: [
-      {title: 'Take the point'},
-      {title: 'Remove the point'}
+      {
+        title: 'Take',
+        icon: 'images/baby-foot-gamelle-plus.pbl.png'
+      },
+      {
+        title: 'Remove',
+        icon: 'images/baby-foot-gamelle-minus.pbl.png'
+      }
     ]
   }]
 });

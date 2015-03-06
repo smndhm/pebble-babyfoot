@@ -29,6 +29,16 @@
                 "type": "font"
             },
             {
+                "file": "images/baby-foot-gamelle-plus.pbl.png",
+                "name": "IMAGES_BABY_FOOT_GAMELLE_PLUS_PBL_PNG",
+                "type": "png"
+            },
+            {
+                "file": "images/baby-foot-gamelle-minus.pbl.png",
+                "name": "IMAGES_BABY_FOOT_GAMELLE_MINUS_PBL_PNG",
+                "type": "png"
+            },
+            {
                 "file": "images/baby-foot-start-game.pbl.png",
                 "name": "IMAGES_BABY_FOOT_START_GAME_PBL_PNG",
                 "type": "png"
