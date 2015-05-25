@@ -1,7 +1,7 @@
 {
     "appKeys": {},
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "Bricodage",
     "longName": "baby-foot",
@@ -29,13 +29,14 @@
                 "type": "font"
             },
             {
-                "file": "images/baby-foot-gamelle-plus.pbl.png",
-                "name": "IMAGES_BABY_FOOT_GAMELLE_PLUS_PBL_PNG",
+                "file": "images/cup.pbl.png",
+                "name": "IMAGES_CUP_PBL_PNG",
                 "type": "png"
             },
             {
-                "file": "images/baby-foot-gamelle-minus.pbl.png",
-                "name": "IMAGES_BABY_FOOT_GAMELLE_MINUS_PBL_PNG",
+                "file": "images/baby-foot-player.pbl.png",
+                "menuIcon": true,
+                "name": "IMAGES_BABY_FOOT_PLAYER_PBL_PNG",
                 "type": "png"
             },
             {
@@ -44,13 +45,18 @@
                 "type": "png"
             },
             {
-                "file": "images/baby-foot-player.pbl.png",
-                "menuIcon": true,
-                "name": "IMAGES_BABY_FOOT_PLAYER_PBL_PNG",
+                "file": "images/baby-foot-gamelle-minus.pbl.png",
+                "name": "IMAGES_BABY_FOOT_GAMELLE_MINUS_PBL_PNG",
+                "type": "png"
+            },
+            {
+                "file": "images/baby-foot-gamelle-plus.pbl.png",
+                "name": "IMAGES_BABY_FOOT_GAMELLE_PLUS_PBL_PNG",
                 "type": "png"
             }
         ]
     },
+    "sdkVersion": "3",
     "shortName": "baby-foot",
     "uuid": "6a578d21-7059-470f-967c-e83e34a8cd89",
     "versionCode": 1,
