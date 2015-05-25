@@ -180,7 +180,7 @@ var mainMenu = new UI.Menu({
         //subtitle: 'VS ' + team_visitor.name,
         icon: 'images/baby-foot-start-game.pbl.png'
       },
-      {title: text.history},
+      //{title: text.history},
       {title: text.options}
     ]
   }]
